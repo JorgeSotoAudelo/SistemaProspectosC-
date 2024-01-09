@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title></title>
+</head>
+<body>
+
+    <div id="vueContainer" class="container m-5">
+        <p class="text-center"></p>
+        <table class="table">
+            <tr>
+                <th scope="row">ID:</thscope="row">
+                <th>{{prospecto.prospectoId}}</th>
+            </tr>
+            <tr>
+                <th scope="row">Nombre:</th>
+                <td>{{prospecto.nombre}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Primer Apellido:</th>
+                <td>{{prospecto.primerApellido}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Segundo Apellido:</th>
+                <td>{{prospecto.segundoApellido}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Calle:</th>
+                <td><p>{{prospecto.calle}}</p></td>
+            </tr>
+            <tr>
+                <th scope="row">Numero:</th>
+                <td> <p>{{prospecto.numero}}</p></td>
+            </tr>
+            <tr>
+                <th scope="row">Colonia:</th>
+                <td><p>{{prospecto.colonia}}</p></td>
+
+            </tr>
+            <tr>
+                <th scope="row">Codigo Postal:</th>
+                <td><p>{{prospecto.codigoPostal}}</p></td>
+            </tr>
+            <tr>
+                <th scope="row">Telefono:</th>
+                <td><p>{{prospecto.telefono}}</p></td>
+            </tr>
+            <tr>
+                <th scope="row">RFC:</th>
+                <td><p>{{prospecto.rfc}}</p></td>
+            </tr>
+            <tr v-if="prospecto.estatus === 3">
+                <th scope="row">Observacion: </th>
+                <td><p>{{prospecto.observacion}}</p></td>
+            </tr>
+            <tr>
+                <th>Documentos: </th>
+            </tr>
+            <tr v-for="documento in documentos">
+                <td><a ref="downloadLink" href="#" @click="downloadDocument(documento.titulo)">{{documento.titulo}}</a></td>
+            </tr>
+        </table>
+        <form @submit.prevent="cambiarEstatus">
+            <div class="mb-3">
+                <select class="form-select" v-model="selectedOption">
+                    <option value="0" selected>Enviado</option>
+                    <option value="1">Autorizado</option>
+                    <option value="2">Rechazado</option>
+                </select>
+            </div>
+            <div class="mb-3" v-if="selectedOption === '2'">
+                <label class="form-label">Observaciones</label>
+                <textarea class="form-control" v-model="observacion" name="observacion" :required="selectedOption === '2'">{{prospecto.observacion}}</textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Evaluar</button>
+        </form>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="/scripts/EvaluarProspecto.js"></script>
+</body>
+</html>
