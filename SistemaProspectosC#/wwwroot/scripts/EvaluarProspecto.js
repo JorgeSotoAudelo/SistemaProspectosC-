@@ -79,5 +79,4 @@ const app = Vue.createApp({
     }
 });
 
-// Mount the Vue app to the specified element in the HTML
 app.mount('#vueContainer');
